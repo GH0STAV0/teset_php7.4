@@ -13,6 +13,7 @@ LABEL Description="PHP-FPM v7.4"
 LABEL Version="1.0.0"
 
 ENV ITDEVGROUP_TIME_ZONE Europe/Kiev
+RUN ln -snf /usr/share/zoneinfo/$ITDEVGROUP_TIME_ZONE /etc/localtime && echo $ITDEVGROUP_TIME_ZONE > /etc/timezone
 
 RUN apt-get update -yqq \
     && apt-get install -yqq \
@@ -28,7 +29,6 @@ RUN apt-get update -yqq \
     supervisor 
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y dist-upgrade
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install python-software-properties
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install software-properties-common
 RUN DEBIAN_FRONTEND=noninteractive LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php
 
@@ -72,8 +72,7 @@ RUN apt-get update -yqq \
        ssmtp
 
 # Add default timezone
-RUN echo $ITDEVGROUP_TIME_ZONE > /etc/timezone \
-    && echo "date.timezone=$ITDEVGROUP_TIME_ZONE" > /etc/php/7.4/cli/conf.d/timezone.ini
+RUN echo "date.timezone=$ITDEVGROUP_TIME_ZONE" > /etc/php/7.4/cli/conf.d/timezone.ini
 
 # Download browscap.ini
 RUN mkdir /var/lib/browscap \
