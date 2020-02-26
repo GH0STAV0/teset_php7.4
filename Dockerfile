@@ -97,7 +97,10 @@ COPY php-conf/php-fpm.conf /etc/php/7.4/fpm/php-fpm.conf
 COPY php-conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
 
 # Download and install wkhtmltopdf
-RUN apt-get install xvfb libfontconfig wkhtmltopdf -y
+RUN apt-get update && apt-get install xvfb libfontconfig wkhtmltopdf -y \
+	&& rm -rf /var/lib/apt/lists/* \
+        && rm -rf /tmp/* \
+        && apt-get clean -yqq
 
 ## Create xvfb wrapper for wkhtmltopdf and create special sh script
 RUN touch /usr/local/bin/wkhtmltopdf \
