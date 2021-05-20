@@ -109,7 +109,7 @@ RUN touch /usr/local/bin/wkhtmltopdf \
     && chmod a+x /usr/local/bin/wkhtmltopdf
 
 
-RUN usermod -u 1000 www-data
+RUN usermod -u 33 www-data
 RUN usermod -aG staff,users,www-data www-data
 # Reconfigure system time
 RUN  dpkg-reconfigure -f noninteractive tzdata
