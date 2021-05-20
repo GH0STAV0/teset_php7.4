@@ -99,6 +99,10 @@ RUN touch /usr/local/bin/wkhtmltopdf \
     && echo 'xvfb-run -a -s "-screen 0 640x480x16" wkhtmltopdf "$@"' > /usr/local/bin/wkhtmltopdf \
     && chmod a+x /usr/local/bin/wkhtmltopdf
 
+## Install agent for elastic
+RUN wget https://github.com/elastic/apm-agent-php/releases/download/v1.0.1/apm-agent-php_1.0.1_all.deb
+RUN dpkg -i apm-agent-php_1.0.1_all.deb
+
 
 RUN usermod -u 33 www-data
 RUN usermod -aG staff,users,www-data www-data
