@@ -84,12 +84,12 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ 
 # Install prestissimo for parallel composer downloads
 RUN mkdir -p /var/www/.composer && chown -R www-data /var/www/.composer
 USER www-data
-RUN composer global require hirak/prestissimo \
+RUN composer global require hirak/prestissimo --ignore-platform-reqs \
  && rm -rf /var/www/.composer/cache
 USER root
-RUN composer global require hirak/prestissimo \
+RUN composer global require hirak/prestissimo --ignore-platform-reqs \
  && rm -rf /root/.composer/cache
-
+#--ignore-platform-reqs
 # Copy our config files for php7.4 fpm and php7.4 cli
 COPY php-conf/php.ini /etc/php/7.4/cli/php.ini
 COPY php-conf/php-fpm.ini /etc/php/7.4/fpm/php.ini
